@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card UI</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="bigBox">
+            <div class="section1">
+                <div class="pfp">
+                    <img id="pfpimg" src="/assets/pfp.jpeg" alt="pfp here!">
+                    <h2 class="name">Aman Fangeria</h2>
+                    <h5 class="location">Bengaluru, India</h5>
+                </div>
+            </div>
+            <div class="middleText">
+                <h6 class="description">"Full Stack Developer and Content Creator"</h6>
+            </div>
+            <div class="section2">
+                <div class="box"><a href="https://github.com/amanfangeria980" target="_blank">GitHub</a></div>
+                <div class="box"><a href="https://www.linkedin.com/in/amanfangeria/" target="_blank">LinkedIn</a></div>
+                <div class="box"><a href="https://twitter.com/aman_fangeria" target="_blank">Twitter</a></div>
+                <div class="box"><a href="https://www.youtube.com/AmanFangeria" target="_blank">Youtube</a></div>
+            </div>
+            <div class="addNew">
+                <input type="text" placeholder="Add a link" id="content">
+                <button id="btn" onclick="addNewBox()">Add</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

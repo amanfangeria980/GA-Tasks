@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Todos App</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>My Todos App</h1>
+            <div class="statusContainer">
+                <div>
+                    <span class="tasksCount"> Completed:</span>
+                    <span id="completedCount">0</span>
+                </div>
+                <div>
+                    <span class="tasksCount"> Total:</span>
+                    <span id="totalCount">0</span>
+                </div>
+                <div>
+                    <span class="tasksCount"> Pending:</span>
+                    <span id="pendingCount">0</span>
+                </div>
+            </div>
+            <div class="inputContainer">
+                <input
+                    type="text"
+                    id="todoInput"
+                    placeholder="Add a new task"
+                />
+                <button onclick="addTodo()">Add</button>
+            </div>
+            <ul id="todoList"></ul>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
