@@ -2,72 +2,40 @@
 import { useEffect, useState } from "react";
 import "../style/Todos.css";
 import { useTodos } from "../context/Todos";
+import {
+  loadTodos,
+  saveTodos,
+  addTodo,
+  toggleTodo,
+  removeTodo,
+} from "../utils/todoFunctions";
 
-const Todos = () => {
-  const { todos, setTodos } = useTodos();
+const TodoApp = () => {
+  const { todos, dispatch } = useTodos();
   const completedTasks = todos.filter((todo) => todo.completed).length;
   const totalTasks = todos.length;
   const pendingTasks = totalTasks - completedTasks;
   const [input, setInput] = useState("");
 
-  async function getTodosFromAPI() {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos"
-      );
-      const data = await response.json();
-      const initialTodos = data.slice(0, 10).map((todo) => ({
-        text: todo.title,
-        completed: false,
-      }));
-      setTodos(initialTodos);
-    } catch (error) {
-      console.error("Error fetching todos:", error);
-    }
-  }
-
   // Load todos from local storage or fetch from API
   useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    } else {
-      getTodosFromAPI();
-    }
+    loadTodos(dispatch);
   }, []);
 
   // Update local storage and task counts whenever todos change
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    saveTodos(todos);
   }, [todos]);
 
-  // add todo function
-  const addTodo = () => {
-    if (input.trim() === "") {
-      alert("Please enter a task!");
-      return;
-    }
-    const newTodo = { text: input, completed: false };
-    setTodos([...todos, newTodo]);
-    setInput("");
-  };
-
-  // Toggle the todo status
-  const toggleTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos[index].completed = !newTodos[index].completed;
-    setTodos(newTodos);
-  };
-
-  // Remove a todo
-  const removeTodo = (index) => {
-    const newTodos = todos.filter((todo, i) => i !== index);
-    setTodos(newTodos);
-  };
-
-  //   handleKeyDown
+  //On enter key press, fire the addTodo event
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") addTodo();
+    if (e.key === "Enter") addTodoHandler();
+  };
+
+  // addTodoHandler
+  const addTodoHandler = () => {
+    addTodo(input, todos, dispatch);
+    setInput("");
   };
 
   return (
@@ -96,7 +64,7 @@ const Todos = () => {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={addTodo}>Add</button>
+        <button onClick={addTodoHandler}>Add</button>
       </div>
       <ul id="todoList">
         {todos.map((todo, index) => (
@@ -108,11 +76,14 @@ const Todos = () => {
               <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => toggleTodo(index)}
+                onChange={() => toggleTodo(index, dispatch)}
               />
               <span>{todo.text}</span>
             </div>
-            <button className="removeBtn" onClick={() => removeTodo(index)}>
+            <button
+              className="removeBtn"
+              onClick={() => removeTodo(index, dispatch)}
+            >
               Remove
             </button>
           </li>
@@ -122,4 +93,4 @@ const Todos = () => {
   );
 };
 
-export default Todos;
+export default TodoApp;
