@@ -27,7 +27,7 @@ const TodoApp = () => {
     saveTodos(todos);
   }, [todos]);
 
-  //On enter key press, fire the addTodo event
+  // On enter key press, fire the addTodo event
   const handleKeyDown = (e) => {
     if (e.key === "Enter") addTodoHandler();
   };
@@ -40,7 +40,7 @@ const TodoApp = () => {
 
   return (
     <div className="container">
-      <h1>My Todos App</h1>
+      <h1>{}TO-DO📝</h1>
       <div className="statusContainer">
         <div>
           <span className="tasksCount">Completed:</span>
@@ -68,23 +68,22 @@ const TodoApp = () => {
       </div>
       <ul id="todoList">
         {todos.map((todo, index) => (
-          <li
-            key={index}
-            className={`todoItem ${todo.completed ? "completed" : ""}`}
-          >
+          <li key={index} className="todoItem">
             <div className="todoDiv">
               <input
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => toggleTodo(index, dispatch)}
               />
-              <span>{todo.text}</span>
+              <span className={todo.completed ? "completed" : ""}>
+                {todo.text}
+              </span>
             </div>
             <button
               className="removeBtn"
               onClick={() => removeTodo(index, dispatch)}
             >
-              Remove
+              ❌
             </button>
           </li>
         ))}
