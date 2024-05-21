@@ -1,0 +1,21 @@
+/* eslint-disable react/prop-types */
+import { createContext, useContext, useState } from "react";
+
+// creating a context and exporting it
+export const TodosContext = createContext(null);
+// creating a provider and exporting it
+export const TodosProvider = (props) => {
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todos")) || []
+  );
+  return (
+    <TodosContext.Provider value={{ todos, setTodos }}>
+      {props.children}
+    </TodosContext.Provider>
+  );
+};
+
+export const useTodos = () => {
+  const todoObj = useContext(TodosContext);
+  return todoObj;
+};
